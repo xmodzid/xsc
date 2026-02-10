@@ -24,4 +24,4 @@ else
     exit 1
 fi
 
-$PYTHON "$BASE_DIR/XSHIELD.py" "$TARGET"
+$PYTHON "$BASE_DIR/enc.py" "$TARGET"
