@@ -1,27 +1,101 @@
 #!/system/bin/sh
 
-BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
+VERSION="1.0"
+BUILD_DIR="build"
+TEMPLATE_DIR="$(dirname "$0")/templates"
 
-if [ -z "$1" ]; then
-    echo "Usage: ./xsc file.sh"
+########################################
+compile_script() {
+
+INPUT="$1"
+
+if [ ! -f "$INPUT" ]; then
+    echo "❌ File tidak ditemukan"
     exit 1
 fi
 
-TARGET="$1"
+NAME=$(basename "$INPUT" .sh)
+OUT_C="$BUILD_DIR/$NAME.c"
+OUT_BIN="$BUILD_DIR/$NAME"
 
-if [ ! -f "$TARGET" ]; then
-    echo "File tidak ditemukan!"
-    exit 1
-fi
+mkdir -p "$BUILD_DIR"
 
-# Detect python
-if command -v python3 >/dev/null 2>&1; then
-    PYTHON=python3
-elif command -v python >/dev/null 2>&1; then
-    PYTHON=python
-else
-    echo "Python tidak ditemukan!"
-    exit 1
-fi
+echo "[+] Encoding payload..."
 
-$PYTHON "$BASE_DIR/XSHIELD.py" "$TARGET"
+PAYLOAD=$(base64 "$INPUT")
+
+echo "[+] Generating loader..."
+
+sed "s|__PAYLOAD__|$PAYLOAD|g" \
+"$TEMPLATE_DIR/loader.c.tpl" > "$OUT_C"
+
+echo "[+] Compiling..."
+
+clang "$OUT_C" -o "$OUT_BIN" -Oz -s -fPIE -pie
+
+chmod 777 "$OUT_BIN"
+
+echo "[✓] Done → $OUT_BIN"
+}
+
+########################################
+clean_build() {
+
+echo "[+] Cleaning build..."
+rm -rf "$BUILD_DIR"
+echo "[✓] Clean selesai"
+}
+
+########################################
+install_tool() {
+
+echo "[+] Installing XSC..."
+
+INSTALL_PATH="/usr/local/bin/xsc"
+
+cp "$0" "$INSTALL_PATH"
+chmod +x "$INSTALL_PATH"
+
+echo "[✓] Installed → $INSTALL_PATH"
+}
+
+########################################
+show_help() {
+
+cat <<EOF
+
+XSC Shell Compiler v$VERSION
+
+Usage:
+  xsc compile file.sh    Compile shell script
+  xsc clean              Hapus build folder
+  xsc install            Install ke system PATH
+  xsc help               Tampilkan bantuan
+
+EOF
+}
+
+########################################
+case "$1" in
+
+compile)
+    compile_script "$2"
+    ;;
+
+clean)
+    clean_build
+    ;;
+
+install)
+    install_tool
+    ;;
+
+help|"")
+    show_help
+    ;;
+
+*)
+    echo "Unknown command"
+    show_help
+    ;;
+esac

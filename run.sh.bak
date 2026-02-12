@@ -1,0 +1,33 @@
+#!/system/bin/sh
+
+set -e
+
+APP_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+show_help() {
+    echo "XSC Build Wrapper"
+    echo ""
+    echo "Usage:"
+    echo "  ./run.sh build <file.sh>"
+    echo "  ./run.sh encrypt <file>"
+    echo "  ./run.sh clean"
+    echo ""
+}
+
+case "$1" in
+    build)
+        shift
+        "$APP_DIR/cli.sh" build "$@"
+        ;;
+    encrypt)
+        shift
+        "$APP_DIR/cli.sh" encrypt "$@"
+        ;;
+    clean)
+        rm -rf "$APP_DIR/build"
+        echo "[✓] Cleaned"
+        ;;
+    *)
+        show_help
+        ;;
+esac
