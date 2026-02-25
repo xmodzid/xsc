@@ -44,34 +44,8 @@ Pastikan tools berikut tersedia di sistem sebelum kompilasi:
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/xshield-team/xshield-compiler.git
-cd xshield-compiler
-```
-
-### 2. Compile Source
-
-**Menggunakan gcc (direkomendasikan):**
-
-```bash
-gcc xc.c -o xc -O2 -lm
-```
-
-**Menggunakan clang:**
-
-```bash
-clang xc.c -o xc -O2 -lm
-```
-
-**Menggunakan tcc (Termux / Android):**
-
-```bash
-tcc xc.c -o xc -lm
-```
-
-**Self-compilation (compile xc menggunakan xc sendiri):**
-
-```bash
-./xc xc.c -o xc
+git clone https://github.com/aetherdev22/XShield.git
+cd XShield
 ```
 
 ### 3. (Opsional) Install Global
@@ -157,6 +131,11 @@ chmod +x /usr/local/bin/xc
 ./xc xc.c -o xc
 ```
 
+**Help Instruction:**
+```bash
+./xc -h
+```
+
 ---
 
 ## Compile di Android (Termux)
@@ -166,9 +145,8 @@ chmod +x /usr/local/bin/xc
 pkg update && pkg install -y gcc tcc upx binutils
 
 # Clone & compile
-git clone https://github.com/xshield-team/xshield-compiler.git
-cd xshield-compiler
-gcc xc.c -o xc -O2 -lm
+git clone https://github.com/aetherdev22/XShield.git
+cd XShield
 
 # Jalankan
 ./xc script.sh -m release --anti-debug --anti-vm
@@ -182,7 +160,7 @@ Setelah kompilasi berhasil, terminal menampilkan summary seperti berikut:
 
 ```
 ╭────────────────────────────────────────────────╮
-│  ▸ LUMINA BUILDER  Payload Obfuscator & Compiler│
+│  ▸ XShield BUILDER  Payload Obfuscator & Compiler
 │  ──────────────────────────────────────────────│
 │  [*] Input
 │       Path  : /sdcard/script.sh
@@ -203,7 +181,7 @@ Setelah kompilasi berhasil, terminal menampilkan summary seperti berikut:
 ## Struktur File
 
 ```
-xshield-compiler/
+XShield/
 ├── xc.c            # Source utama compiler
 ├── xc              # Binary hasil compile
 └── README.md       # Dokumentasi ini
