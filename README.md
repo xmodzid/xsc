@@ -39,7 +39,7 @@ Pastikan tools berikut tersedia di sistem sebelum kompilasi:
 
 ---
 
-## Cara Compile XShield
+## Cara Pakai XShield
 
 ### 1. Clone Repository
 
@@ -48,19 +48,7 @@ git clone https://github.com/aetherdev22/XShield.git
 cd XShield
 ```
 
-### 3. (Opsional) Install Global
-
-```bash
-cp xc /usr/local/bin/xc
-chmod +x /usr/local/bin/xc
-```
-
----
-
-## Cara Pakai
-
 ### Sintaks
-
 ```
 ./xc <script.sh | program.c> [options]
 ```
@@ -160,7 +148,7 @@ Setelah kompilasi berhasil, terminal menampilkan summary seperti berikut:
 
 ```
 ╭────────────────────────────────────────────────╮
-│  ▸ XShield BUILDER  Payload Obfuscator & Compiler
+│  ▸ XShield Compiler Tools
 │  ──────────────────────────────────────────────│
 │  [*] Input
 │       Path  : /sdcard/script.sh
