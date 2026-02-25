@@ -46,6 +46,7 @@ Pastikan tools berikut tersedia di sistem sebelum kompilasi:
 ```bash
 git clone https://github.com/aetherdev22/XShield.git
 cd XShield
+chmod +x xc
 ```
 
 ### Sintaks
